@@ -1,0 +1,1087 @@
+/* --- 0.1: ALL FONT IMPORTS (Moved to top for reliability) --- */
+@import url('https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
+/*
+===================================================
+==                 Homebrew V1.0                 ==
+==   Theme Focus: Dungeons and Dragons Theme     ==
+==   Created by: TheWolverineFire 
+==            with the help of Gemini            ==
+==   Requires local installation of 'Bookinsanity', 
+        'Scaly Sans'                             ==
+===================================================
+*/
+
+
+/* ===================================================
+==  SECTION 0.2: GLOBAL ACCENT OVERRIDE (Fixes Blue/Purple)
+===================================================
+*/
+/* This block forces the Default Theme to use your custom accent colors */
+
+body.theme-light {
+  --color-accent: #D32430 !important; /* D&D Red */
+  --color-accent-hover: #A01B24 !important; /* Darker Red */
+  
+  /* Required for transparency effects */
+  --color-accent-rgb: 211, 36, 48 !important; 
+}
+
+body.theme-dark {
+  --color-accent: #D32430 !important; /* D&D Red */
+  --color-accent-hover: #A01B24 !important; /* Darker Red */
+
+  /* Required for transparency effects */
+  --color-accent-rgb: 211, 36, 48 !important; 
+}
+
+
+/* ===================================================
+  SECTION 1: THE PARCHMENT PALETTE
+===================================================
+*/
+.theme-light {
+  /* COLORS */
+  --background-primary: #FDF6E3; --background-secondary: #F8F0D8;
+  --background-modifier-hover: #F0E8C8; --text-normal: #4A3C31;
+  --text-muted: #6E5B50; --text-faint: #857267; --text-title: #613B3B;
+  --background-modifier-border: #DCD3B0;
+
+  /* --- D&D RED ACCENT COLORS (for internal theme use) --- */
+  --text-accent: #D32430;
+  --text-accent-hover: #A01B24;
+  --interactive-accent: #D32430;
+  --interactive-accent-hover: #A01B24;
+
+  /* --- RESTORED GLOBAL FONT VARIABLES --- */
+  --font-family-sans: 'Scaly Sans', 'Scaly Sans SC', sans-serif !important; 
+  --font-family-serif: 'Alegreya', serif !important; 
+  --font-text: 'Alegreya', serif !important; 
+  --font-default: 'Alegreya', serif !important; 
+}
+
+
+/* ===================================================
+  SECTION 2: WINDOW & INTERFACE CHROME
+===================================================
+*/
+
+/* --- 2.1: Title Bar, Tabs, Ribbons, Status Bar Styling --- */
+.theme-light { --background-secondary-alt: var(--background-secondary); }
+.is-frameless .titlebar { background-color: var(--background-secondary); }
+.workspace-header, .workspace-tabs, .workspace-ribbon, .status-bar { background-color: var(--background-secondary); border-color: var(--background-modifier-border); }
+.workspace-tab-header.is-active { background-color: var(--background-primary); border-bottom-color: var(--background-primary); }
+.sidebar-toggle-button { background-color: var(--background-secondary); color: var(--text-muted); }
+
+/* --- 2.2: Sidebar Focus and Borders (NEW) --- */
+.workspace-leaf.mod-active, .view-header {
+  /* Subtle shadow on active pane to feel raised */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+}
+/* Font is now handled by the global :root selector, but force Scaly Sans on file view */
+.nav-file-title, .nav-folder-title {
+  font-family: var(--font-family-sans); 
+}
+/* Active file is handled in Section 19 */
+
+
+/* ===================================================
+  SECTION 3: TEXTURED NOTE PAPER (Background Restored)
+===================================================
+*/
+
+/* --- 3.1: Apply texture to Content --- */
+.theme-light .markdown-source-view .cm-editor, .theme-light .markdown-reading-view {
+  /* RESTORED: Background image for parchment texture */
+  background-image: url('https://i.ibb.co/Txd051Ls/PHB-background.png');
+  background-repeat: repeat; 
+  background-size: auto; 
+  background-color: var(--background-primary);
+}
+.theme-light .markdown-source-view .cm-scroller, .theme-light .markdown-reading-view .markdown-preview-sizer {
+    background-color: transparent !important;
+}
+
+/*
+===================================================
+==         SECTION 4: TYPOGRAPHY               ==
+== REQUIRES FONT INSTALLATION (see notes).     ==
+===================================================
+*/
+
+/* * 4.2: Font variables moved to Section 1
+*/
+
+/* --- 4.3: Apply Header Font (Bookinsanity) --- */
+/* (APPLIED GLOBALLY to avoid light/dark conflict) */
+.workspace-leaf-content .view-header-title,
+.cm-header,
+.markdown-preview-view h1,
+.markdown-preview-view h2,
+.markdown-preview-view h3,
+.markdown-preview-view h4,
+.markdown-preview-view h5,
+.markdown-preview-view h6 {
+  font-family: 'Bookinsanity', serif !important; /* FORCED */
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 0.5px;
+  /* Color defaults to text-title or is overridden below */
+}
+.workspace-leaf-content .view-header-title {
+    font-size: 24px;
+    color: var(--text-title);
+}
+
+
+/* --- 4.4: D&D Header Flair (H1, H2, & H3) - WIKI STYLE --- */
+
+/* === H1 HEADERS === */
+/* H1: Main Title (Red, Shadow) */
+.markdown-preview-view h1,
+.cm-header-1 {
+  font-size: 1.8em;
+  color: var(--text-accent); 
+  /* Light mode shadow */
+  .theme-light & {
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); 
+  }
+  margin-bottom: 15px; 
+}
+
+
+/* === H2 HEADERS (WIKI SECTION BREAK) === */
+
+/* H2: READING VIEW (Clean border) */
+.markdown-preview-view h2 {
+  font-size: 1.5em;
+  color: var(--text-accent);
+  font-variant: small-caps;
+  border-bottom: 2px solid var(--text-accent);
+  padding-bottom: 5px;
+  letter-spacing: 1px;
+  margin-top: 25px; 
+  margin-bottom: 15px; 
+}
+
+/* H2: EDITING VIEW (Reverted to simpler styling) */
+.cm-header-2 {
+  font-size: 1.5em;
+  color: var(--text-accent);
+  font-variant: small-caps;
+  letter-spacing: 1px;
+}
+
+
+/* === H3 HEADERS === */
+/* H3: Sub-Header (Red) */
+.cm-header-3,
+.markdown-preview-view h3 {
+  font-size: 1.25em;
+  color: var(--text-accent);
+}
+
+/* --- 4.5: Text Emphasis (Bold & Italics) --- */
+.cm-em, .markdown-preview-view em {
+  /* Italics (usually for emphasis, matching the text slightly more) */
+  color: var(--text-muted); 
+  font-style: italic; 
+}
+.cm-strong, .markdown-preview-view strong {
+  /* Bold (Use Scaly Sans for technical/mechanical terms) */
+  font-family: var(--font-family-sans);
+  font-weight: bold;
+}
+
+/* --- 4.6: Inline Code (Mechanical Terms) --- */
+.cm-inline-code, .markdown-preview-view code {
+  color: var(--text-accent); /* Red for mechanical terms */
+  font-family: var(--font-family-sans); /* Use Scaly Sans */
+  font-weight: bold;
+  font-variant: small-caps; /* Small caps look great for these */
+  padding: 1px 4px;
+  background-color: rgba(74, 60, 49, 0.08); /* Slight background */
+  border-radius: 3px;
+}
+
+
+/* ===================================================
+  SECTION 5: IN-NOTE UTILITIES (HR, Tables, Links, Code Blocks)
+===================================================
+*/
+
+/* --- 5.1: Horizontal Rules (PHB Flourish) --- */
+.markdown-preview-view hr, .cm-hr {
+  border: none; background-image: url('https://i.imgur.com/T0b0L6X.png');
+  background-repeat: no-repeat; background-position: center; height: 50px; margin: 20px 0;
+}
+
+/* --- 5.2: Tables (Themed & Enhanced for Data/Stat Blocks) --- */
+
+/* Table Header (th) Styling */
+.markdown-preview-view th {
+  font-family: var(--font-family-sans); 
+  color: var(--text-accent); 
+  text-align: center; /* Center header text */
+  font-variant: small-caps;
+  letter-spacing: 0.5px;
+  
+  /* Thick top and bottom border for stat block separation */
+  border-top: 3px solid var(--text-title); 
+  border-bottom: 3px solid var(--text-accent);
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* Table Data (td) Styling */
+.markdown-preview-view td {
+  font-family: var(--font-family-sans); /* Use mechanical font for data */
+  text-align: left; /* Ensure data aligns left */
+  padding: 6px 10px;
+}
+
+/* Row Styling (Alternating colors) */
+.markdown-preview-view tr:nth-child(even) { 
+    background-color: rgba(74, 60, 49, 0.05); 
+}
+
+
+/* --- 5.3: Links & Tags (ENHANCED - Font Changed to Body Text) --- */
+
+/* Standard Link Color */
+.markdown-preview-view a { 
+    color: var(--text-accent); 
+}
+
+/* Base Tag Styling (Applies to both Live Preview/Source and Reading View) */
+.cm-s-obsidian span.cm-hashtag, 
+a.tag {
+  font-family: var(--font-text); /* CHANGED to Alegreya (Body Font) */
+  font-weight: bold; 
+  font-size: 0.9em;
+  padding: 3px 8px; /* Slightly more vertical padding */
+  border-radius: 4px; /* Slightly sharper corners for a label/card feel */
+  letter-spacing: 0.5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* Subtle 3D lift */
+  text-decoration: none; /* Remove default underline */
+}
+
+/* Light Mode Tag Colors */
+.theme-light .cm-s-obsidian span.cm-hashtag, 
+.theme-light a.tag {
+    color: var(--text-accent); 
+    background-color: var(--background-secondary); 
+    border: 1px solid var(--background-modifier-border);
+}
+
+/* Dark Mode Tag Colors */
+.theme-dark .cm-s-obsidian span.cm-hashtag, 
+.theme-dark a.tag {
+    color: var(--text-title); /* Use bright text for readability */
+    background-color: var(--background-secondary-alt); /* Use a deeper background */
+    border: 1px solid var(--background-modifier-border);
+    box-shadow: 1px 1px 3px rgba(255, 255, 255, 0.05); /* Subtle lift with light shadow */
+}
+
+/* --- 5.4: Fenced Code Blocks (Stat Block Style) --- */
+.markdown-preview-view pre > code {
+  background-color: var(--background-secondary-alt);
+  border: 1px solid var(--background-modifier-border);
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  white-space: pre-wrap;
+}
+
+/* Specific class for a D&D Stat Block look (e.g., ```statblock) */
+.markdown-preview-view pre[class*="language-dnd"] code,
+.markdown-preview-view pre[class*="language-statblock"] code {
+  border: 4px solid var(--text-title); 
+  border-image: linear-gradient(to right, var(--text-title) 25%, transparent 25%, transparent 75%, var(--text-title) 75%) 1;
+  background-color: var(--background-primary);
+  border-radius: 0;
+  padding: 15px;
+  font-family: var(--font-family-sans);
+  font-size: 0.9em;
+}
+
+
+/* ===================================================
+  SECTION 6: CUSTOM BOXES (CALLOUTS & READ-ALOUD)
+===================================================
+*/
+
+/* --- 6.1: Blockquotes (Restored to Read-Aloud Box) --- */
+.markdown-preview-view blockquote, .cm-quote {
+  background-color: var(--background-secondary); border-left: 5px solid var(--text-accent);
+  padding: 10px 15px; font-style: italic; font-size: 1.1em;
+  border: 1px solid var(--background-modifier-border);
+}
+
+/* --- 6.2: Custom Callouts (Recolored) --- */
+.callout { font-family: var(--font-family-sans); background-color: var(--background-secondary); }
+.callout[data-callout="dnd-lore"] { --callout-color: #2C7A9B; border: 1px solid #2C7A9B; border-left: 5px solid #2C7A9B; background-color: #EBF6FA; }
+.callout[data-callout="dnd-treasure"] { --callout-color: #B8860B; border: 1px solid #B8860B; border-left: 5px solid #B8860B; background-color: #FFFBEB; box-shadow: 0 0 5px #B8860B; }
+.callout[data-callout="dnd-danger"] { --callout-color: #3E8D60; border: 1px solid #3E8D60; border-left: 5px solid #3E8D60; }
+
+/* --- 6.3: Default Obsidian Callouts (Themed) --- */
+/* Ensure default callouts look like themed blockquotes */
+.callout[data-callout="note"], 
+.callout[data-callout="abstract"],
+.callout[data-callout="info"] {
+  background-color: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-left: 5px solid var(--text-title); /* Darker border for utility */
+  box-shadow: none;
+}
+.callout-title-inner {
+    font-family: var(--font-family-sans);
+    font-weight: bold;
+    font-variant: small-caps;
+    letter-spacing: 1px;
+}
+
+
+/* ===================================================
+  SECTION 7: CHECKLISTS & FINAL LAYOUT
+===================================================
+*/
+
+/* --- 7.1: Checklists (Red Box & Strikethrough) --- */
+.task-list-item-checkbox { border: 2px solid var(--text-normal); border-radius: 4px; }
+.task-list-item-checkbox:checked { border: 2px solid var(--text-accent); }
+.markdown-preview-view .task-list-item.is-checked .list-text { color: var(--text-muted); text-decoration: line-through; }
+
+/* --- 7.2: FINAL LAYOUT: Floating Image (Right Margin Infobox) --- */
+
+/* A. Style the custom 'float-right' callout block container */
+.callout[data-callout="float-right"] {
+    display: block; 
+    float: none !important; 
+    position: absolute;
+    right: 0; 
+    top: 0; 
+    
+    /* WIDTH: WIDER for infobox feel */
+    width: 700px; 
+    
+    /* Margin to push it to the right and separate it */
+    margin: 1em 0 1em 2em; 
+    
+    padding: 0; border: none; background-color: transparent;
+    z-index: 10;
+}
+.callout[data-callout="float-right"] .callout-title { display: none; }
+
+/* B. Style the Image and Apply Fade (FRAME REMOVED, DUAL FADE) */
+.callout[data-callout="float-right"] img {
+    /* REMOVED: border-width, border-style, border-image, box-shadow */
+    border: none !important; /* Ensure no residual Obsidian border */
+    
+    /* Dual-Fade Mask: Vertical fade adjusted to 75% for smoother transition on tall images */
+    mask-image: linear-gradient(to right, transparent 0%, black 15%), 
+                linear-gradient(to bottom, black 75%, transparent 100%); 
+    
+    mask-composite: intersect; 
+    -webkit-mask-composite: source-in; 
+    
+    /* Add for webkit browsers */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%), 
+                        linear-gradient(to bottom, black 75%, transparent 100%); 
+    
+    padding: 0; 
+    max-width: 100%; height: auto; 
+    margin: 0; 
+    background-color: transparent; 
+}
+
+/* --- Adjusted: Main content margin to make space for the wider floating image --- */
+/* This ensures text doesn't flow underneath the absolutely positioned image */
+.markdown-reading-view:has(.callout[data-callout="float-right"]) .markdown-preview-sizer {
+    /* NEW MARGIN: Image width (700px) + desired gap (40px) = 740px */
+    margin-right: 740px !important; 
+}
+
+.markdown-source-view:has(.callout[data-callout="float-right"]) .cm-sizer {
+    /* NEW MARGIN: Apply to editing view as well */
+    margin-right: 740px !important; 
+}
+
+
+/*
+===================================================
+==         SECTION 8: LAYOUT CONTROL             ==
+===================================================
+*/
+
+/* --- 8.1: Left-Align Readable Line Width --- */
+/* * This snippet changes the behavior of
+ * "Readable line length", pushing the content block 
+ * to the left instead of centering it.
+ */
+
+.is-readable-line-width .markdown-preview-sizer,
+.is-readable-line-width .cm-sizer {
+    /*
+     * Instead of "margin: 0 auto;" (which centers)
+     * we set "margin-left: 0;" to force it left.
+     */
+    margin-left: 0 !important;
+    margin-right: auto !important;
+}
+
+/*
+===================================================
+==         SECTION 9: DARK MODE (WIKI SHADOW)    ==
+===================================================
+*/
+.theme-dark {
+  /* --- DARK PARCHMENT PALETTE (Updated to Dark Earth Tones) --- */
+  --background-primary: #2F2823; 
+  --background-secondary: #40362F; 
+  --background-secondary-alt: #4A4038; 
+  --text-normal: #DDC9B5; 
+  --text-muted: #B5A593;
+  --text-title: #FFFBEB;
+  
+  /* --- NEW D&D RED ACCENT COLORS --- */
+  --text-accent: #D32430;
+  --text-accent-hover: #A01B24;
+  --interactive-accent: #D32430;
+  --interactive-accent-hover: #A01B24;
+  
+  --background-modifier-hover: #4D4742;
+  --background-modifier-border: #59493B; 
+
+  /* --- DARK MODE INTERFACE ADJUSTMENTS --- */
+  --sidebar-background: var(--background-secondary);
+  --header-background: var(--background-secondary);
+  
+  /* --- 9.0: Global Font/Header Reset (NEW AGGRESSIVE FIX) --- */
+  /* This ensures the custom fonts defined in Section 1 are inherited correctly in Dark Mode */
+  --font-family-serif: var(--font-family-serif) !important;
+  --font-family-sans: var(--font-family-sans) !important;
+  --font-text: var(--font-text) !important;
+  --font-default: var(--font-default) !important;
+
+  /* AGGRESSIVE FIX: Ensure all primary text elements use the custom body font */
+  font-family: var(--font-text) !important;
+}
+
+/* --- 9.1: Dark Mode Background Texture (STABLE SOLID COLOR) --- */
+.theme-dark .markdown-source-view .cm-editor, 
+.theme-dark .markdown-reading-view {
+  /* BACKGROUND IMAGE REMOVED FOR STABILITY */
+  background-image: none !important; 
+  background-color: var(--background-primary) !important; /* Base color is solid dark parchment */
+  filter: none;
+}
+
+/* --- 9.1 (Part B): Ensure inner content is transparent --- */
+.theme-dark .markdown-source-view .cm-scroller,
+.theme-dark .markdown-reading-view .markdown-preview-sizer {
+    background-color: transparent !important;
+    filter: none; 
+}
+
+/* --- 9.2: Header & Embellishment Color Swap (H2 Underline Fix) --- */
+/* Ensure the H2 border remains the accent color and has the full style */
+.theme-dark .markdown-preview-view h2 {
+    border-bottom: 2px solid var(--text-accent); /* ADDED FULL BORDER DECLARATION */
+}
+/* Ensure the horizontal rule (flourish) is visible */
+.theme-dark .markdown-preview-view hr, .theme-dark .cm-hr {
+    filter: invert(80%); /* Invert the image to show white/light flourish */
+}
+
+/* --- 9.3: File Manager Font Fix (NEW) --- */
+/* Force Scaly Sans onto the file navigation area */
+.theme-dark .nav-file-title, 
+.theme-dark .nav-folder-title,
+.theme-dark .nav-buttons-container {
+    font-family: var(--font-family-sans) !important;
+}
+
+
+/* --- 9.4: Header & Typography Overrides (UPDATED - Font Style/Weight Lock & Small Caps) --- */
+
+/* A. General Headers (Apply Dark Mode Title Color AND Bookinsanity Font) */
+.theme-dark .cm-header,
+.theme-dark .markdown-preview-view h1,
+.theme-dark .markdown-preview-view h2,
+.theme-dark .markdown-preview-view h3,
+.theme-dark .markdown-preview-view h4,
+.theme-dark .markdown-preview-view h5,
+.theme-dark .markdown-preview-view h6,
+.theme-dark .workspace-leaf-content .view-header-title {
+  color: var(--text-title); /* Use the bright dark mode text color */
+  font-family: 'Bookinsanity', serif !important; 
+  font-weight: normal !important; /* FORCED CONSISTENCY */
+  font-style: normal !important; /* FORCED CONSISTENCY */
+}
+
+/* B. H1 Specific Overrides (Apply Dark Mode Accent Color and Shadow) */
+.theme-dark .cm-header-1,
+.theme-dark .markdown-preview-view h1 {
+  color: var(--text-accent); 
+  /* Subtle white glow instead of black shadow */
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.1); 
+}
+
+/* C. H2 Specific Overrides (Apply Dark Mode Accent Color and Small Caps) */
+.theme-dark .markdown-preview-view h2,
+.theme-dark .cm-header-2 {
+    color: var(--text-accent);
+    font-variant: small-caps; /* ADDED: Ensures the Small Caps look is consistent */
+}
+
+/* --- 9.5: Stat Blocks/Code Blocks (No Change) --- */
+.theme-dark pre[class*="language-statblock"] code {
+    border-color: var(--text-title); /* Keep stat block border bright */
+}
+
+/*
+===================================================
+==         SECTION 10: MOBILE OPTIMIZATION       ==
+== (Rules only apply on screens <= 768px wide)    ==
+===================================================
+*/
+
+@media all and (max-width: 768px) {
+
+  /* --- 10.1: Reset Floating Image/Infobox (Section 7.2 Fix) --- */
+  
+  /* A. Reset Content Margin */
+  /* Remove the massive margin-right added to make space for the floating infobox. */
+  .markdown-reading-view:has(.callout[data-callout="float-right"]) .markdown-preview-sizer,
+  .markdown-source-view:has(.callout[data-callout="float-right"]) .cm-sizer {
+    margin-right: 0 !important;
+  }
+
+  /* B. Reset Infobox Position */
+  .callout[data-callout="float-right"] {
+    position: static !important; /* Reverts to normal document flow */
+    width: 100% !important;     /* Takes up full mobile width */
+    margin: 1em 0 !important;   /* Clean up margin */
+    float: none !important;     /* Ensure no floating confusion */
+  }
+
+  /* --- 10.2: General Readability Adjustments --- */
+  
+  /* Increase padding on the sides for better touch interaction */
+  .markdown-reading-view .markdown-preview-sizer {
+      padding: 10px 15px;
+  }
+  
+  /* --- 10.3: Mobile Notification Styling (NEW) --- */
+  .is-mobile.is-mobile .notice {
+    border-radius: var(--radius-s); /* Use default small radius for consistency */
+  }
+}
+
+/*
+===================================================
+==         SECTION 11: TABLET OPTIMIZATION       ==
+== (Rules apply on screens between 769px and 1024px)
+===================================================
+*/
+
+@media all and (min-width: 769px) and (max-width: 1024px) {
+
+  /* --- 11.1: Restrict Max Content Width --- */
+  /* Ensures the main text block doesn't become too wide in reading view */
+  .markdown-preview-sizer, .cm-sizer {
+      max-width: 600px; /* Constrains the main text block */
+  }
+
+  /* --- 11.2: Constrain Floating Infobox (Section 7.2) --- */
+  
+  /* The default desktop margin (740px) is too large. We need a smaller, safer position. */
+  .markdown-reading-view:has(.callout[data-callout="float-right"]) .markdown-preview-sizer,
+  .markdown-source-view:has(.callout[data-callout="float-right"]) .cm-sizer {
+      /* New margin: Allows space for a smaller 300px wide image */
+      margin-right: 340px !important; 
+  }
+
+  /* Adjust the absolute position and width of the infobox */
+  .callout[data-callout="float-right"] {
+    position: absolute !important; 
+    
+    /* Set a smaller, readable width for tablet sidebar */
+    width: 300px !important; 
+    
+    /* Ensure it remains in the right margin */
+    right: 0 !important; 
+    top: 0 !important;
+    
+    /* Ensure no float interference */
+    float: none !important; 
+  }
+}
+
+/*
+===================================================
+==         SECTION 12: MID-SIZE OPTIMIZATION     ==
+== (Rules apply on screens between 1025px and 1366px)
+===================================================
+*/
+
+@media all and (min-width: 1025px) and (max-width: 1366px) {
+
+  /* --- 12.1: Constrain Floating Infobox Size --- */
+  
+  /* A. Constrain Content Margin */
+  .markdown-reading-view:has(.callout[data-callout="float-right"]) .markdown-preview-sizer,
+  .markdown-source-view:has(.callout[data-callout="float-right"]) .cm-sizer {
+      /* New margin: Allows space for a large 450px wide image */
+      margin-right: 490px !important; /* 450px width + 40px gap */
+  }
+
+  /* B. Constrain Infobox Width */
+  .callout[data-callout="float-right"] {
+    /* Override the 700px width from Section 7.2 */
+    width: 450px !important; 
+  }
+}
+
+/*
+===================================================
+==         SECTION 13: METADATA AND PROPERTIES   ==
+===================================================
+*/
+
+/* --- 13.1: YAML Frontmatter Block (Styling the whole block) --- */
+.metadata-container,
+.frontmatter-container, 
+.cm-hmd-frontmatter {
+    font-family: var(--font-family-sans); /* Use the mechanical font (Scaly Sans) */
+    background-color: var(--background-secondary-alt); /* Slightly darker box color */
+    border: 1px solid var(--background-modifier-border);
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+/* --- 13.2: Properties View (Source/Reading) --- */
+
+/* Key (e.g., 'Alignment:', 'Challenge Rating:') */
+.metadata-property-key,
+.cm-property-name {
+    font-weight: bold;
+    color: var(--text-title); /* Dark red/bright white */
+    padding-right: 10px;
+    font-variant: small-caps;
+    letter-spacing: 0.5px;
+}
+
+/* Value (The actual data) */
+.metadata-property-value,
+.cm-property-value {
+    color: var(--text-normal);
+}
+
+/*
+===================================================
+==         SECTION 14: UI & ACCESSIBILITY STYLING ==
+===================================================
+*/
+
+/* --- 14.1: Custom Text Selection Color --- */
+/* Changes the color of text highlighted by the user */
+::selection {
+    /* Muted accent color for light mode */
+    background: rgba(97, 59, 59, 0.25); 
+    color: var(--text-normal);
+}
+.theme-dark ::selection {
+    /* Dark mode selection: transparent light color */
+    background: rgba(196, 67, 67, 0.35); 
+}
+
+
+/* --- 14.2: Thematic Scrollbars (Webkit/Chrome/Obsidian) --- */
+/* Targets the main scrollbar area */
+.workspace, .cm-scroller, .markdown-preview-sizer {
+    scrollbar-color: var(--text-muted) var(--background-secondary-alt);
+    scrollbar-width: thin;
+}
+
+/* Scrollbar Track (the background path) */
+::-webkit-scrollbar-track {
+    background: var(--background-secondary-alt);
+}
+
+/* Scrollbar Thumb (the draggable bar) */
+::-webkit-scrollbar-thumb {
+    background: var(--text-muted); /* Use muted text color */
+    border: 3px solid var(--background-secondary-alt); /* Frame the thumb */
+    border-radius: 10px;
+}
+
+/* Scrollbar Thumb Hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-normal);
+}
+
+
+/*
+===================================================
+==         SECTION 15: MECHANICAL CODE & KBD STYLING ==
+===================================================
+*/
+
+/* --- 15.1: Keyboard Tags (<kbd>) for Action Cues --- */
+/* Makes keyboard shortcuts or action cues look like small, themed buttons */
+kbd {
+    font-family: var(--font-family-sans); 
+    font-size: 0.9em;
+    padding: 2px 4px;
+    border: 1px solid var(--text-muted);
+    border-radius: 3px;
+    background-color: var(--background-secondary-alt);
+    box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+    color: var(--text-normal);
+}
+
+/* Dark Mode adjustment */
+.theme-dark kbd {
+    box-shadow: 1px 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* --- 15.2: Fenced Code Blocks (Enhanced Readability) --- */
+/* General styling for fenced code blocks (monospaced areas) */
+.markdown-preview-view pre.code-block, 
+.cm-s-obsidian pre.HyperMD-codeblock {
+    /* Ensure scrollbars are themed inside code blocks */
+    scrollbar-color: var(--text-muted) var(--background-secondary-alt);
+    scrollbar-width: thin;
+}
+
+/* Optional: Highlight cursor line in Source View (like a focus pointer) */
+.cm-s-obsidian .cm-active-line {
+    background-color: var(--background-modifier-hover);
+}
+
+/*
+===================================================
+==         SECTION 16: UI POLISHING & INTERACTION ==
+===================================================
+*/
+
+/* --- 16.1: Themed Tooltips --- */
+.tooltip {
+  background-color: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  color: var(--text-normal);
+}
+.theme-dark .tooltip {
+  background-color: var(--background-primary);
+}
+
+/* --- 16.2: Themed Suggestion/Autocomplete Box --- */
+.suggestion-item.is-selected {
+  background-color: var(--background-modifier-hover);
+  color: var(--text-accent) !important; /* Force red selection */
+}
+
+/* --- 16.3: Themed Notices/Pop-ups --- */
+.notice {
+  background-color: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  color: var(--text-normal);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* --- 16.4: Themed Sidebar Icon Hovers --- */
+.tree-item-self:hover :is(.tree-item-inner-subtext, .tree-item-icon, .tree-item-flair),
+.search-result-hover-button,
+.nav-folder-title:hover svg.svg-icon,
+.search-result-file-title:hover .collapse-icon svg.svg-icon {
+  color: var(--text-accent);
+}
+
+/*
+===================================================
+==     SECTION 17: FORM ELEMENT STYLING (Sliders & Toggles) ==
+===================================================
+*/
+
+/* --- 17.1: Sliders --- */
+/* This styles the track and thumb of range sliders */
+
+/* The slider track (the bar) */
+input[type=range]::-webkit-slider-runnable-track {
+  background-color: var(--background-secondary-alt);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+}
+.theme-dark input[type=range]::-webkit-slider-runnable-track {
+  background-color: var(--background-primary);
+}
+
+/* The slider thumb (the draggable part) */
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Needs to be reset */
+  height: 16px;
+  width: 16px;
+  border-radius: 8px;
+  background-color: var(--text-accent); /* Use D&D Red */
+  border: 1px solid var(--background-secondary-alt);
+  box-shadow: 0 0 3px var(--text-accent); /* Add a glow */
+  margin-top: -4px; /* Center thumb on track */
+}
+input[type=range]:hover::-webkit-slider-thumb {
+  background-color: var(--text-accent-hover); /* Darker Red on hover */
+}
+
+
+/* --- 17.2: Toggles (Switches) --- */
+/* This styles the on/off switches in the Settings menu */
+
+/* The "ON" state of the toggle switch */
+.checkbox-container.is-enabled {
+  background-color: var(--text-accent); /* D&D Red background */
+  border-color: var(--text-accent-hover);
+}
+
+/* The little circle inside the toggle */
+.checkbox-container.is-enabled .checkbox-toggle-button {
+  background-color: #fff; /* Use bright white for the toggle button */
+}
+.theme-dark .checkbox-container.is-enabled .checkbox-toggle-button {
+  background-color: var(--background-primary); /* Dark bg color */
+}
+
+
+/* The "OFF" state of the toggle */
+.checkbox-container {
+  background-color: var(--background-secondary-alt);
+  border-color: var(--background-modifier-border);
+}
+
+/*
+===================================================
+==     SECTION 18: COMMAND PALETTE & QUICK SWITCHER ==
+===================================================
+*/
+
+.prompt {
+  background-color: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* --- 18.1: Suggestion Items (e.g., list of commands) --- */
+.suggestion-item {
+  font-family: var(--font-family-sans); /* Use mechanical font */
+}
+
+/* Highlighted/Selected Item */
+.suggestion-item.is-selected {
+  background-color: var(--background-modifier-hover);
+  color: var(--text-accent) !important; /* Use D&D Red for selection */
+}
+
+/* --- 18.2: Input Field --- */
+.prompt-input-container .prompt-input {
+  border: 1px solid var(--background-modifier-border);
+  background-color: var(--background-primary);
+  color: var(--text-normal);
+}
+
+/*
+===================================================
+==     SECTION 19: BUTTON & LINK STYLING         ==
+===================================================
+*/
+
+/* --- 19.1: Primary Buttons (Call to Action) --- */
+/* This targets buttons like "Save", "Manage", "Update", etc. */
+.mod-cta {
+  background-color: var(--text-accent) !important;
+  color: #fff !important; /* Use bright white text for contrast */
+}
+
+.mod-cta:hover {
+  background-color: var(--text-accent-hover) !important; /* Use the darker red on hover */
+  color: #fff !important;
+}
+
+/* --- 19.2: Link Hover Effects --- */
+/* Add a clear underline to links when hovering */
+.markdown-reading-view a:hover {
+  color: var(--text-accent-hover);
+  text-decoration: underline;
+}
+
+/* --- 19.3: Active File in Explorer --- */
+/* This highlights the currently open file in the sidebar */
+.nav-file-title.is-active {
+  background-color: var(--background-modifier-hover);
+  color: var(--text-accent);
+  box-shadow: -2px 0 0 0 var(--text-accent) inset; /* Adds a red line to the left */
+}
+
+.theme-dark .nav-file-title.is-active {
+    box-shadow: -2px 0 0 0 var(--text-accent) inset;
+}
+
+/*
+===================================================
+==     SECTION 20: SEARCH RESULT STYLING         ==
+===================================================
+*/
+
+/* --- 20.1: Search Result Items in Panel --- */
+
+/* Style for each result item in the list */
+.search-result-file-title,
+.search-result-file-match {
+  font-family: var(--font-family-sans); /* Use mechanical font */
+}
+
+/* Selected/hovered item in the search list */
+.search-result-file-match:hover,
+.search-result.is-selected {
+  background-color: var(--background-modifier-hover);
+}
+
+/* --- 20.2: Highlighted Search Term --- */
+/* This is the highlighted text itself, in the note or in the panel */
+.search-match {
+  background-color: rgba(211, 36, 48, 0.3); /* D&D Red, semi-transparent */
+  color: var(--text-normal);
+  font-weight: bold;
+}
+
+/* --- 20.3: Search Buttons --- */
+/* Ensure buttons in the search pane (like "Clear search") use the accent */
+.search-input-clear-button {
+  color: var(--text-muted);
+}
+.search-input-clear-button:hover {
+  color: var(--text-accent);
+}
+
+/*
+===================================================
+==         SECTION 21: PLUGIN COMPATIBILITY      ==
+===================================================
+*/
+
+/* --- 21.1: Dataview Plugin --- */
+.dataview.table-view-table th {
+  font-family: var(--font-family-sans); 
+  color: var(--text-accent); 
+  text-align: center;
+  font-variant: small-caps;
+  border-bottom: 2px solid var(--text-accent);
+}
+.dataview.table-view-table td {
+  font-family: var(--font-family-sans);
+}
+
+/* --- 21.2: TTRPG Statblocks Plugin --- */
+.statblock-plugin {
+    font-family: var(--font-text);
+}
+.statblock-plugin h1, .statblock-plugin h2, .statblock-plugin h3 {
+    font-family: 'Bookinsanity', serif !important;
+    color: var(--text-accent) !important;
+}
+.statblock-plugin hr {
+    background-image: url('[https://i.imgur.com/T0b0L6X.png](https://i.imgur.com/T0b0L6X.png)');
+    background-size: 60%;
+}
+.statblock-plugin table th {
+    font-family: var(--font-family-sans);
+}
+.statblock-plugin p {
+    font-family: var(--font-text);
+}
+
+
+/* --- 21.3: Obsidian Leaflet (Maps) --- */
+.leaflet-container {
+  background-color: var(--background-primary);
+}
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background-color: var(--background-secondary);
+  color: var(--text-normal);
+  box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+}
+.leaflet-control-zoom a, .leaflet-control-layers-toggle {
+  background-color: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  color: var(--text-normal);
+}
+.leaflet-control-zoom a:hover, .leaflet-control-layers-toggle:hover {
+  background-color: var(--background-modifier-hover);
+  color: var(--text-accent);
+}
+
+/* --- 21.4: Calendar Plugin --- */
+#calendar-container {
+  --color-background-heading: var(--background-secondary);
+  --color-background-day: var(--background-primary);
+  --color-background-day-hover: var(--background-modifier-hover);
+  --color-background-day-active: var(--background-secondary-alt);
+  
+  --color-text-title: var(--text-accent);
+  --color-text-heading: var(--text-title);
+  --color-text-day: var(--text-normal);
+  --color-text-day-active: var(--text-accent);
+  --color-text-day-today: var(--text-accent);
+  
+  font-family: var(--font-family-sans);
+}
+#calendar-container .calendar-title-wrapper {
+    font-family: 'Bookinsanity', serif;
+    font-size: 1.5em;
+}
+#calendar-container .calendar-day.is-today {
+    border: 1px solid var(--text-accent);
+}
+
+/* --- 21.5: Kanban Plugin --- */
+.kanban-plugin {
+  background-color: var(--background-secondary) !important;
+}
+.kanban-plugin .kanban-board {
+  background-color: var(--background-secondary);
+}
+.kanban-plugin .kanban-lane-header {
+  font-family: 'Bookinsanity', serif;
+  color: var(--text-title);
+  background-color: var(--background-secondary-alt);
+}
+.kanban-plugin .kanban-item {
+  background-color: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.kanban-plugin .kanban-item:hover {
+  background-color: var(--background-modifier-hover);
+}
+
+/* --- 21.6: Timelines (April's Automatic) --- */
+.timeline {
+  border-left-color: var(--background-modifier-border);
+}
+.timeline-card {
+  background-color: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.timeline-card-header {
+  color: var(--text-title);
+  font-family: var(--font-family-sans);
+}
+.timeline-card-content {
+  font-family: var(--font-text);
+}
+.timeline-card:after { /* The little dot on the line */
+  background-color: var(--text-accent);
+  border-color: var(--background-primary);
+}
